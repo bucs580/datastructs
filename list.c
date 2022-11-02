@@ -1,4 +1,4 @@
-#include "datastructs/list.c"
+#include "datastructs/list.h"
 #include <stddef.h>
 #include <stdlib.h>
 
