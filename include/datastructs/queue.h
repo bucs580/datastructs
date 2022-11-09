@@ -21,17 +21,17 @@ typedef struct Queue {
 } Queue;
 
 QueueNode *new_QueueNode(Data d);
-void del_QueueNode(QueueNode *sn);
-QueueNode *copy_QueueNode(QueueNode *sn);
+void del_QueueNode(QueueNode *qn);
+QueueNode *copy_QueueNode(QueueNode *qn);
 
 Queue *new_Queue();
-void del_Queue(Queue *s);
-Queue *copy_Queue(Queue *s);
+void del_Queue(Queue *q);
+Queue *copy_Queue(Queue *q);
 
 
-void clear(Queue *s);
-void enqueue(Queue *s, Data d);
-Data dequeue(Queue *s);
-Data peek(Queue *s);
+void clear(Queue *q);
+void enqueue(Queue *q, Data d);
+Data dequeue(Queue *q);
+Data peek(Queue *q);
 
 #endif // DATASTRUCTS_QUEUE_H
