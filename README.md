@@ -26,18 +26,20 @@ Implementations of classic data structures in C
 
 - Dynamic Arrays/Vectors (**vector.c**)
 - Linked List (**list.c**)
+- Stack (**stack.c**)
+- Queue (**queue.c**)
 
 <a id="building-the-project"></a>
 ## Building the Project
 
-> Include a writeup explaining what to do to build your project. Use [code quoting](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#quoting-code) to create code blocks listing the exact commands to use.
+Include a writeup explaining what to do to build your project. Use [code quoting](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#quoting-code) to create code blocks listing the exact commands to use.
 
 <a id="instructions"></a>
 ## Instructions
 
--[] Send an email to the instructor listing your team members, emails, and Github usernames to form the team. **Deadline: Sun 06 Nov 23:59:59 EDT 2022**
+-[] Send an email to the instructor listing your team members, emails, and Github usernames to form the team.
 -[] Update this README as you work on the project
--[] Inspect the header files in **include/datastructs**
+-[] Inspect the header files in `include/datastructs`
 -[] Implement functions in the source files listed in [Implemented Data Structures](#implemented-data-structures)
 -[] Complete the Makefile to build the project.
 -[] "Submit" the project on Brightspace by giving the SHA hash of the commit in the assignment comments for each checkpoint.
