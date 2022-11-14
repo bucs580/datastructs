@@ -18,7 +18,7 @@ typedef struct Vector {
 } Vector;
 
 Vector *new_Vector(size_t size);
-void *del_Vector(Vector *v);
+void del_Vector(Vector *v);
 Vector *copy_Vector(Vector *v);
 
 Data *at_Vector(Vector *v, size_t index);
