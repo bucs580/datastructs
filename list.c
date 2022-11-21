@@ -10,7 +10,7 @@
 /// @return     { Return a pointer to the newly created node on success, 
 ///               or a null pointer on failure. }
 ///
-Node *new_Node(Data *d) { return NULL; }
+Node *new_Node(Data d) { return NULL; }
 
 /// 
 /// @brief      { Delete an existing node }
@@ -85,7 +85,7 @@ Node *getNode_List(List *l, Data d) { return NULL; }
 List *insert_Node(List *l, Node *n, Node *pos) { return NULL; }
 
 ///
-/// @brief      { Appends a node at of the list, and updates the tail pointer }
+/// @brief      { Appends a node at tail of the list, and updates the tail pointer }
 ///
 /// @param      l     { The list to be appended to }
 /// @param      n     { The node to be appended }
