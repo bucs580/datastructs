@@ -12,7 +12,7 @@ typedef uint64_t Data;
 
 typedef struct QueueNode {
 	Data value;
-	QueueNode *next;
+	struct QueueNode *next;
 } QueueNode;
 
 typedef struct Queue {
@@ -28,10 +28,9 @@ Queue *new_Queue();
 void del_Queue(Queue *s);
 Queue *copy_Queue(Queue *s);
 
-
-void clear(Queue *s);
-void enqueue(Queue *s, Data d);
-Data dequeue(Queue *s);
-Data peek(Queue *s);
+void clear_Queue(Queue *s);
+void enqueue_Queue(Queue *s, Data d);
+Data dequeue_Queue(Queue *s);
+Data peek_Queue(Queue *s);
 
 #endif // DATASTRUCTS_QUEUE_H
