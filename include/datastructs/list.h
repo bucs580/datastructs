@@ -30,7 +30,7 @@ List *copy_List(List *l);
 size_t len_List(List *l);
 Node *getNode_List(List *l, Data d);
 List *insert_Node(List *l, Node *n, Node *pos);
-List *append_Node(List *l, Data d);
+List *append_Node(List *l, Node *n);
 List *remove_Node(List *l, Node *pos);
 void print_Node(Node* n);
 void print_List(List* l);
