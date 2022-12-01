@@ -61,7 +61,7 @@ void testVECTOR(void) {
 
   // Test insertions beyond initially allocated memory
   CU_ASSERT_EQUAL(myVector->size, 1);
-  CU_ASSERT_EQUAL(myVector->len, 1);
+  CU_ASSERT_EQUAL(myVector->len, 0);
   for (size_t i = 1; i < 10; ++i) {
     insert_Vector(myVector, (Data)i, i);
     CU_ASSERT_EQUAL(*at_Vector(myVector, i), i);
@@ -112,7 +112,8 @@ void testLIST(void) {
 
   // Test list appending
   for (size_t i = 0; i < 10; ++i) {
-    append_Node(myList, i);
+    Node* nn = new_Node((Data) i);
+    append_Node(myList, nn);
   }
 
   // Check forward traversal
@@ -124,7 +125,7 @@ void testLIST(void) {
 
   // Check reverse traversal
   nptr = myList->tail;
-  for (size_t i = 10; i >= 0; --i) {
+  for (size_t i = 10; i > 0; --i) {
     CU_ASSERT_EQUAL(nptr->data, (Data)i);
     nptr = nptr->prev;
   }
@@ -200,7 +201,7 @@ void testQUEUE(void) {
     enqueue_Queue(myQueue, (Data)i);
   }
   CU_ASSERT_EQUAL(myQueue->length, 5);
-  CU_ASSERT_EQUAL(peek_Queue(myQueue), (Data)4);
+  CU_ASSERT_EQUAL(peek_Queue(myQueue), (Data)0);
 
   // Removing Elements from the Queue
   for (size_t i = 0; i < 2; ++i) {
@@ -212,7 +213,7 @@ void testQUEUE(void) {
   clear_Queue(myQueue);
   CU_ASSERT_PTR_NOT_NULL(myQueue);
   CU_ASSERT_EQUAL(myQueue->length, 0);
-  CU_ASSERT_PTR_NULL(myQueue->top);
+  CU_ASSERT_PTR_NULL(myQueue->head);
 
   // Finalization
   del_Queue(myQueue);
@@ -250,6 +251,8 @@ int main(int argc, char *argv[]) {
   }
 
   CU_pSuite pSuite_queue = NULL;
+  pSuite_queue =
+      CU_add_suite("Suite_Queue", init_suite_queue, clean_suite_queue);
   if (NULL == pSuite_queue) {
     CU_cleanup_registry();
     return CU_get_error();
