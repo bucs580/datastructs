@@ -28,6 +28,7 @@ Implementations of classic data structures in C
 - Linked List (**list.c**)
 - Stack (**stack.c**)
 - Queue (**queue.c**)
+- Tree (**tree.c**)
 
 <a id="building-the-project"></a>
 ## Building the Project
