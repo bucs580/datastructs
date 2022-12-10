@@ -42,11 +42,11 @@ TreeNode *min(TreeNode *tn);
 // Tree mutators/accessors
 void insertData(Tree *t, Data d);
 TreeNode *findData(Tree *t, Data d);
-TreeNode *deleteData(Tree *t, Data d);
+TreeNode *removeData(Tree *t, Data d);
 
 // Traversal Routines
-Data *preorder(Tree *t, Data *sz);
-Data *inorder(Tree *t, Data *sz);
-Data *postorder(Tree *t, Data *sz);
+void preorder(Tree *t);
+void inorder(Tree *t);
+void postorder(Tree *t);
 
 #endif // DATASTRUCTS_TREE_H 
