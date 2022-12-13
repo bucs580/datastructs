@@ -151,13 +151,14 @@ void insertData(Tree *t, Data d) { return; }
 TreeNode *findData(Tree *t, Data d) { return NULL; }
 
 ///
-/// @brief      { Removes a data value from the tree. The TreeNode containing
+/// @brief      { Remove a data value from the tree. The TreeNode containing
 ///               the data value is removed but not freed. It is the caller's
 ///               responsibility to delete the TreeNode. If the value does not
-///               exist in the tree, the tree remains unchanged. }
+///               exist in the tree, the tree remains unchanged, and a null 
+///               pointer is returned. }
 ///
 /// @param      t     { The tree in which the data value may be contained }
-/// @param[in]  d     { parameter_description }
+/// @param[in]  d     { The data value to be removed }
 ///
 /// @return     { A pointer to the TreeNode containing that data, now unlinked
 ///               from the tree. }

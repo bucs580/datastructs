@@ -2,6 +2,7 @@
 #include "datastructs/queue.h"
 #include "datastructs/stack.h"
 #include "datastructs/vector.h"
+#include "datastructs/tree.h"
 #include <CUnit/Basic.h>
 #include <CUnit/CUCurses.h>
 #include <CUnit/CUnit.h>
