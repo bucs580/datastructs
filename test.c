@@ -1,10 +1,10 @@
 #include "datastructs/list.h"
 #include "datastructs/queue.h"
 #include "datastructs/stack.h"
-#include "datastructs/vector.h"
 #include "datastructs/tree.h"
+#include "datastructs/vector.h"
 #include <CUnit/Basic.h>
-#include <CUnit/CUCurses.h>
+//#include <CUnit/CUCurses.h>
 #include <CUnit/CUnit.h>
 #include <CUnit/Console.h>
 #include <CUnit/TestRun.h>
@@ -15,6 +15,7 @@ Vector *myVector = NULL;
 List *myList = NULL;
 Stack *myStack = NULL;
 Queue *myQueue = NULL;
+Tree *myTree = NULL;
 
 /* The suite initialization function.
  * Returns zero on success, non-zero otherwise.
@@ -27,6 +28,8 @@ int init_suite_stack(void) { return 0; }
 
 int init_suite_queue(void) { return 0; }
 
+int init_suite_tree(void) { return 0; }
+
 /* The suite cleanup function.
  * Closes the temporary file used by the tests.
  * Returns zero on success, non-zero otherwise.
@@ -38,6 +41,8 @@ int clean_suite_list(void) { return 0; }
 int clean_suite_stack(void) { return 0; }
 
 int clean_suite_queue(void) { return 0; }
+
+int clean_suite_tree(void) { return 0; }
 
 /* Tests of DS functions */
 void testVECTOR(void) {
@@ -113,7 +118,7 @@ void testLIST(void) {
 
   // Test list appending
   for (size_t i = 0; i < 10; ++i) {
-    Node* nn = new_Node((Data) i);
+    Node *nn = new_Node((Data)i);
     append_Node(myList, nn);
   }
 
@@ -221,6 +226,72 @@ void testQUEUE(void) {
   CU_ASSERT_PTR_NULL(myQueue);
 }
 
+void testTREE(void) {
+  // Initialization
+  myTree = new_Tree();
+  CU_ASSERT_PTR_NOT_NULL_FATAL(myTree);
+  CU_ASSERT_PTR_NULL(myTree->root);
+  CU_ASSERT_EQUAL(height(myTree), 0);
+  CU_ASSERT_EQUAL(size(myTree), 0);
+
+  // Insertion
+  // ... inserting root
+  insertData(myTree, 11);
+  CU_ASSERT_PTR_EQUAL(myTree->root, findData(myTree, 11));
+  CU_ASSERT_EQUAL(myTree->root->data, 11);
+  CU_ASSERT_PTR_NULL(myTree->root->parent);
+  CU_ASSERT_PTR_NULL(myTree->root->left);
+  CU_ASSERT_PTR_NULL(myTree->root->right);
+
+  // ... inserting children
+  /* Our tree will look like this:
+   *           11
+   *          /  \
+   *         /    \
+   *        5      72
+   *       / \    /  \
+   *      2   7  20  100
+   *     /    \  /
+   *    1     8 12
+   */
+  insertData(myTree, 5);
+  insertData(myTree, 72);
+  insertData(myTree, 20);
+  insertData(myTree, 7);
+  insertData(myTree, 2);
+  insertData(myTree, 1);
+  insertData(myTree, 8);
+  insertData(myTree, 12);
+  CU_ASSERT_EQUAL(height(myTree), 3);
+  CU_ASSERT_EQUAL(size(myTree), 10);
+  CU_ASSERT_EQUAL(depth(myTree->root), 0);
+  TreeNode *leaf = findData(myTree, 1);
+  CU_ASSERT_TRUE(isLeaf(leaf));
+  CU_ASSERT_EQUAL(max(myTree->root)->data, 100);
+  CU_ASSERT_EQUAL(min(myTree->root)->data, 1);
+
+  // Traversal routines
+  preorder(myTree);  // 11 5 2 1 7 8 72 20 12 100
+  inorder(myTree);   // 1 2 5 7 8 11 12 20 72 100
+  postorder(myTree); // 1 2 8 7 5 12 20 100 72 11
+  CU_PASS("Traversal routines completed");
+
+  // Removal
+  // ... Removing interior (2), short circuits 1
+  CU_ASSERT_PTR_NOT_NULL(removeData(myTree, 2));
+  CU_ASSERT_EQUAL(findData(myTree, 1)->parent->data, 5);
+
+  // ... Removing leaf (1), basic case
+  CU_ASSERT_PTR_NOT_NULL(removeData(myTree, 1));
+  CU_ASSERT_PTR_NULL(findData(myTree, 5)->left);
+
+  // ... Remove root (11) -> either 8 or 12 will be new root
+  CU_ASSERT_PTR_NOT_NULL(removeData(myTree, 11));
+  CU_ASSERT(myTree->root->data == 8 || myTree->root->data == 12);
+  CU_ASSERT_EQUAL(myTree->root->left->data, 5);
+  CU_ASSERT_EQUAL(myTree->root->right->data, 72);
+}
+
 int main(int argc, char *argv[]) {
 
   /* initialize the CUnit test registry */
@@ -259,6 +330,13 @@ int main(int argc, char *argv[]) {
     return CU_get_error();
   }
 
+  CU_pSuite pSuite_tree = NULL;
+  pSuite_tree = CU_add_suite("Suite_Tree", init_suite_tree, clean_suite_tree);
+  if (NULL == pSuite_tree) {
+    CU_cleanup_registry();
+    return CU_get_error();
+  }
+
   /* add the tests to the suite */
   if ((NULL == CU_add_test(pSuite_vector, "test of vectors", testVECTOR)) ||
       (false)) {
@@ -280,6 +358,11 @@ int main(int argc, char *argv[]) {
 
   if ((NULL == CU_add_test(pSuite_queue, "test of queues", testQUEUE)) ||
       (false)) {
+    CU_cleanup_registry();
+    return CU_get_error();
+  }
+
+  if ((NULL == CU_add_test(pSuite_tree, "test of tree", testTREE)) || (false)) {
     CU_cleanup_registry();
     return CU_get_error();
   }
